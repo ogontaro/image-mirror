@@ -1,0 +1,47 @@
+name: sync repository to quay
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+  workflow_dispatch:
+jobs:
+  set-repository-list:
+    runs-on: ubuntu-latest
+    outputs:
+      repositories: ${{ steps.set-repository-list.outputs.repositories }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: set repository list
+        id: set-repository-list
+        run: |
+          echo "source repository list is here"
+          cat src_repositories.json
+          repositories=$(cat src_repositories.json | jq -c)
+          echo "repositories=${repositories}" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
+  sync_repository:
+    needs: set-repository-list
+    runs-on: ubuntu-latest
+    container: quay.io/skopeo/stable
+    strategy:
+      fail-fast: false
+      matrix:
+        src_repository: ${{ fromJson(needs.set-repository-list.outputs.repositories) }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: setup account
+        run: 'echo "$QUAY_AUTH" > auth.json'
+        shell: bash
+        env:
+          QUAY_AUTH: ${{secrets.QUAY_AUTH}}
+      - name : sync repository
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 1440 # 24 hours
+          max_attempts: 3
+          command: SRC_REPOSITORY=${{ matrix.src_repository }} ./sync.sh
