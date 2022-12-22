@@ -20,8 +20,7 @@ jobs:
           cat src_repositories.json
           repositories=$(cat src_repositories.json | jq -c)
           echo "repositories=${repositories}" >> $GITHUB_OUTPUT
-          echo $GITHUB_OUTPUT
-  sync_repository:
+  sync-repository:
     needs: set-repository-list
     runs-on: ubuntu-latest
     container: quay.io/skopeo/stable
@@ -36,7 +35,6 @@ jobs:
           ref: main
       - name: setup account
         run: 'echo "$QUAY_AUTH" > auth.json'
-        shell: bash
         env:
           QUAY_AUTH: ${{secrets.QUAY_AUTH}}
       - name : sync repository
