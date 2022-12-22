@@ -1,4 +1,6 @@
 # image-mirror
+[![sync repository to quay](https://github.com/ogontaro/image-mirror/actions/workflows/sync.yaml/badge.svg)](https://github.com/ogontaro/image-mirror/actions/workflows/sync.yaml)
+
 ## これは何？
 コンテナイメージを[quay.io](https://quay.io/organization/image-mirror)にミラーリングしています
 
