@@ -18,5 +18,22 @@
   "docker.io/blackducksoftware/rabbitmq",
   "docker.io/blackducksoftware/blackduck-postgres-waiter",
   "docker.io/blackducksoftware/blackduck-postgres",
-  "docker.io/k8sgerrit/gerrit"
+  "docker.io/k8sgerrit/gerrit",
+  "docker.io/k8sgerrit/apache-git-http-backend",
+  "docker.io/k8sgerrit/gerrit-init",
+  "docker.io/k8sgerrit/gerrit-replica",
+  "docker.io/k8sgerrit/gerrit",
+  "docker.io/k8sgerrit/git-gc",
+  "docker.io/minio/minio",
+  "docker.io/rook/ceph",
+  "docker.io/velero/velero-plugin-for-aws",
+  "docker.io/velero/velero-plugin-for-csi",
+  "docker.io/velero/velero",
+  "docker.io/calico/apiserver",
+  "docker.io/calico/node",
+  "docker.io/calico/pod2daemon-flexvol",
+  "docker.io/calico/typha",
+  "docker.io/grafana/grafana",
+  "docker.io/grafana/loki",
+  "docker.io/grafana/promtail"
 ]
