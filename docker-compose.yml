@@ -3,12 +3,11 @@ version: "3.7"
 services:
   workspace:
     build:
-      dockerfile: container/Dockerfile
+      dockerfile: .ideacontainer/Dockerfile
       context: ./
-      target: workspace
-    command: [ tail, -f, /dev/null ]
+    ports:
+      - 5993:5993 # idea server
     volumes:
-      - ./src:/workspace/src:delegated
-      - ./Cargo.toml:/workspace/Cargo.toml:delegated
-      - ./Cargo.lock:/workspace/Cargo.lock:delegated
-
+      - /workspace/target
+      - ./:/workspace/:delegated
+    # command: [ tail, -f, /dev/null ]
