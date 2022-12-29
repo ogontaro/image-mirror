@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  workspace:
+    build:
+      dockerfile: container/Dockerfile
+      context: ./
+      target: workspace
+    command: [ tail, -f, /dev/null ]
+    volumes:
+      - ./src:/workspace/src:delegated
+      - ./Cargo.toml:/workspace/Cargo.toml:delegated
+      - ./Cargo.lock:/workspace/Cargo.lock:delegated
+
