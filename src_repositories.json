@@ -48,6 +48,5 @@
   "k8s.gcr.io/kube-state-metrics/kube-state-metrics",
   "k8s.gcr.io/metrics-server/metrics-server",
   "k8s.gcr.io/sig-storage/snapshot-controller",
-  "public.ecr.aws/aws-ec2/aws-node-termination-handler",
   "registry.k8s.io/ingress-nginx/controller"
 ]
