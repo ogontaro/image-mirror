@@ -1,0 +1,29 @@
+{
+  "name": "Rust Development",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "serayuzgur.crates",
+        "GitHub.copilot",
+        "rust-lang.rust-analyzer",
+        "codezombiech.gitignore",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "PKief.material-icon-theme",
+        "EditorConfig.EditorConfig",
+        "vadimcn.vscode-lldb"
+      ]
+    }
+  },
+  "settings": {
+    "files.autoSave": "afterDelay",
+    "[rust]": {
+      "editor.defaultFormatter": "rust-lang.rust-analyzer",
+      "editor.formatOnType": true,
+      "editor.formatOnSave": true
+    }
+  },
+}

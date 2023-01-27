@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  workspace:
+    build:
+      dockerfile: .ideacontainer/Dockerfile
+      context: ./
+    ports:
+      - 5993:5993 # idea server
+    volumes:
+      - /workspace/target
+      - ./:/workspace/:delegated
+    # command: [ tail, -f, /dev/null ]

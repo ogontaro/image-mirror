@@ -1,4 +1,4 @@
-name: sync repository to quay
+name: synctest
 on:
   schedule:
     - cron:  '0 0 * * *'
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          ref: main
       - name: set repository list
         id: set-repository-list
         run: |
@@ -23,7 +21,7 @@ jobs:
   sync-repository:
     needs: set-repository-list
     runs-on: ubuntu-latest
-    container: quay.io/skopeo/stable
+    container: docker.io/ogontaro/image-mirror
     strategy:
       fail-fast: false
       matrix:
@@ -31,8 +29,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-        with:
-          ref: main
       - name: setup account
         run: 'echo "$QUAY_AUTH" > auth.json'
         env:
