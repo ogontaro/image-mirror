@@ -15,11 +15,14 @@ fn main() {
     let repository_url = &args[1];
     let repository =
         cache::find_or_initialize(&repository_url).expect("failed to find or initialize");
-    println!("cached tags: {:?}", repository.tags);
+    let list: Vec<String> = repository.tags.iter().map(|t| t.name.clone()).collect();
+    println!("cached tags({} count): {:?}", list.len(), list);
     let current_tags = registry_client::get_tags(&repository).expect("failed to get tags");
-    println!("current tags: {:?}", current_tags);
+    let list: Vec<String> = current_tags.iter().map(|t| t.name.clone()).collect();
+    println!("current tags({} count): {:?}", list.len(), list);
     let new_tags = diff(&repository.tags, &current_tags);
-    println!("new tags: {:?}", new_tags);
+    let list: Vec<String> = new_tags.iter().map(|t| t.name.clone()).collect();
+    println!("new tags({} count): {:?}", list.len(), list);
     for mut tag in new_tags {
         match tag.sync(&repository_url) {
             Ok(_) => cache::update_tag(repository_url, &tag).expect("failed to update tag"),

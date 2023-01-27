@@ -33,8 +33,8 @@ impl Tag {
             .arg(&format!("{}:{}", repository, &self.name))
             .arg(MIRROR_REGISTRY)
             .output()?;
-        if output.status.code() != Some(0) {
-            println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+        println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+        if !output.status.success() {
             println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
             return Err("failed to sync".into());
         }

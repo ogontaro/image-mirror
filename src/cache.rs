@@ -9,18 +9,22 @@ pub fn find_or_initialize(repository_url: &str) -> Result<Repository, Box<dyn st
     let url = url::Url::parse(&format!("https://{}", repository_url))?;
     let host = url.host_str().unwrap();
     let path = url.path();
-    let filename = filename(host, path);
-    if !std::path::Path::new(&filename).exists() {
+    let filepath = format!("{}/{}", CACHE_DIR, filename(host, path));
+    if !std::path::Path::new(&filepath).exists() {
         return Ok(build_repository(&host, &path));
     }
-    let file = std::fs::File::open(format!("{}/{}", CACHE_DIR, &filename))?;
+    let file = std::fs::File::open(&filepath)?;
     let repository: Repository = serde_json::from_reader(file)?;
     Ok(repository)
 }
 
 pub fn save(repository: &Repository) -> Result<(), Box<dyn std::error::Error>> {
-    let filename = filename(&repository.host, &repository.path);
-    let mut file = std::fs::File::create(format!("{}/{}", CACHE_DIR, &filename))?;
+    let filepath = format!(
+        "{}/{}",
+        CACHE_DIR,
+        filename(&repository.host, &repository.path)
+    );
+    let mut file = std::fs::File::create(filepath)?;
     let json = serde_json::to_string(&repository)?;
     file.write_all(json.as_bytes())?;
     Ok(())

@@ -1,7 +1,7 @@
-name: synctest
+name: sync image
 on:
   schedule:
-    - cron:  '0 0 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
 jobs:
   set-repository-list:
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+        with:
+          ref: main
       - name: set repository list
         id: set-repository-list
         run: |
@@ -29,13 +31,36 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: setup account
+        with:
+          ref: main
+      - name: restore cache
+        uses: actions/cache/restore@v3
+        with:
+          path: ./cache
+          key: tag-${{ matrix.src_repository }}-dummy
+          restore-keys: |
+            tag-${{ matrix.src_repository }}
+      - name: setup account credentials
         run: 'echo "$QUAY_AUTH" > auth.json'
         env:
           QUAY_AUTH: ${{secrets.QUAY_AUTH}}
-      - name : sync repository
+      - name: show old tag digests
+        run: |
+          echo "old tag digests is here"
+          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "-" + (.is_synced|tostring) + ": " + .digest[0:300]'
+      - name: sync repository
         uses: nick-fields/retry@v2
         with:
           timeout_minutes: 1440 # 24 hours
           max_attempts: 3
           command: SRC_REPOSITORY=${{ matrix.src_repository }} ./sync.sh
+      - name: show new tag digests
+        run: |
+          echo "new tag digests is here"
+          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "-" + (.is_synced|tostring) + ": " + .digest[0:300]'
+      - name: save cache
+        if: always()
+        uses: actions/cache/save@v3
+        with:
+          path: ./cache
+          key: tag-${{ matrix.src_repository }}-${{ hashFiles('cache/*.json') }}

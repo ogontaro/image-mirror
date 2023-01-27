@@ -33,9 +33,8 @@ ENV LANG="C.UTF-8" \
   TZ="Asia/Tokyo"
 RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN yum update -y libselinux; \
-    yum install -y jq curl; \
+    yum install -y jq curl git gh; \
     yum clean all
-USER nobody
 COPY container/entrypoint.sh /entrypoint.sh
 COPY --from=builder /workspace/target/release/image-mirror /bin/image-mirror
 ENTRYPOINT ["/entrypoint.sh"]
