@@ -47,7 +47,7 @@ jobs:
       - name: show old tag digests
         run: |
           echo "old tag digests is here"
-          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "-" + (.is_synced|tostring) + ": " + .digest[0:300]'
+          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "(synced: " + (.is_synced|tostring) + ", digest: " + .digest[0:300] + ")"'
       - name: sync repository
         uses: nick-fields/retry@v2
         with:
@@ -57,7 +57,7 @@ jobs:
       - name: show new tag digests
         run: |
           echo "new tag digests is here"
-          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "-" + (.is_synced|tostring) + ": " + .digest[0:300]'
+          ls ./cache | xargs -I{} cat ./cache/{} | jq '.tags[] | .name + "(synced: " + (.is_synced|tostring) + ", digest:" + .digest[0:300] + ")"'
       - name: save cache
         if: always()
         uses: actions/cache/save@v3
