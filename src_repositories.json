@@ -17,6 +17,7 @@
   "docker.io/blackducksoftware/blackduck-bomengine",
   "docker.io/blackducksoftware/blackduck-matchengine",
   "docker.io/blackducksoftware/blackduck-webui",
+  "docker.io/blackducksoftware/blackduck-storage",
   "docker.io/blackducksoftware/rabbitmq",
   "docker.io/blackducksoftware/blackduck-postgres-waiter",
   "docker.io/blackducksoftware/blackduck-postgres",
