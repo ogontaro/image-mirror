@@ -22,6 +22,8 @@ impl Tag {
         let output = Command::new("skopeo")
             .arg("sync")
             .arg("--all")
+            .arg("--preserve-digests")
+            .arg("--keep-going")
             .args(["--retry-times", "3"])
             .arg("--scoped")
             .args(["--src", "docker"])
@@ -33,8 +35,23 @@ impl Tag {
             .output()?;
         println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
         if !output.status.success() {
-            println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
-            return Err("failed to sync".into());
+            let output = Command::new("skopeo")
+                .arg("sync")
+                .arg("--all")
+                .args(["--retry-times", "3"])
+                .arg("--scoped")
+                .args(["--src", "docker"])
+                .args(["--src", "docker"])
+                .args(["--dest", "docker"])
+                .args(["--authfile", "auth.json"])
+                .arg(&format!("{}:{}", repository, &self.name))
+                .arg(MIRROR_REGISTRY)
+                .output()?;
+            println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
+            if !output.status.success() {
+                println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+                return Err("failed to sync".into());
+            }
         }
         self.is_synced = true;
         Ok(self)
