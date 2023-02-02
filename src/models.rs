@@ -22,8 +22,6 @@ impl Tag {
         let output = Command::new("skopeo")
             .arg("sync")
             .arg("--all")
-            .arg("--preserve-digests")
-            .arg("--keep-going")
             .args(["--retry-times", "3"])
             .arg("--scoped")
             .args(["--src", "docker"])
