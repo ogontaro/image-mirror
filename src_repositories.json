@@ -71,6 +71,7 @@
     "docker.io/openpolicyagent/gatekeeper",
     "docker.io/openpolicyagent/gatekeeper-crds",
     "docker.io/opsgenie/kubernetes-event-exporter",
+    "docker.io/osixia/phpldapadmin",
     "docker.io/pizzafactory0contorno/bazel",
     "docker.io/rook/ceph",
     "docker.io/treydock/ssh_exporter",
