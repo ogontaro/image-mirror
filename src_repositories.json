@@ -62,6 +62,8 @@
     "docker.io/monaka/gerrit-init",
     "docker.io/monaka/gerrit-replica",
     "docker.io/monaka/git-gc",
+    "docker.io/monaka/git-gc",
+    "docker.io/n8nio/n8n",
     "docker.io/natsio/nats-server-config-reloader",
     "docker.io/natsio/prometheus-nats-exporter",
     "docker.io/nginxinc/nginx-unprivileged",
