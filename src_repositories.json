@@ -100,6 +100,7 @@
     "k8s.gcr.io/prometheus-adapter/prometheus-adapter",
     "k8s.gcr.io/sig-storage/snapshot-controller",
     "registry.k8s.io/ingress-nginx/controller",
+    "registry.k8s.io/ingress-nginx/controllernginx/nginx-unprivileged",
     "registry.opensource.zalan.do/acid/logical-backup",
     "registry.opensource.zalan.do/acid/postgres-operator",
     "registry.opensource.zalan.do/acid/spilo-14"
