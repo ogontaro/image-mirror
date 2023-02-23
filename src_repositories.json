@@ -75,6 +75,7 @@
     "docker.io/pizzafactory0contorno/bazel",
     "docker.io/rook/ceph",
     "docker.io/treydock/ssh_exporter",
+    "docker.io/zegl/kube-score",
     "docker.io/velero/velero",
     "docker.io/velero/velero-plugin-for-aws",
     "docker.io/velero/velero-plugin-for-csi",
