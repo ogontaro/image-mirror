@@ -95,6 +95,7 @@
     "ghcr.io/pizzafactory/k8s-gerrit/gerrit-init",
     "ghcr.io/pizzafactory/k8s-gerrit/gerrit-replica",
     "ghcr.io/pizzafactory/k8s-gerrit/git-gc",
+    "ghcr.io/salesforce/sloop",
     "k8s.gcr.io/autoscaling/cluster-autoscaler",
     "k8s.gcr.io/kube-state-metrics/kube-state-metrics",
     "k8s.gcr.io/metrics-server/metrics-server",
